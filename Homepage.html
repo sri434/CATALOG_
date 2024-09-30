@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shamir's Secret Sharing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #input, #output {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shamir's Secret Sharing Algorithm</h1>
+    
+    <div id="input">
+        <h2>Input JSON</h2>
+        <pre id="inputJson"></pre>
+    </div>
+    
+    <div id="output">
+        <h2>Output</h2>
+        <pre id="outputResult"></pre>
+    </div>
+    
+    <script>
+        async function runTestCases() {
+            try {
+                // Fetch input JSON files for test cases
+                const response1 = await fetch('input1.json');
+                const data1 = await response1.json();
+
+                const response2 = await fetch('input2.json');
+                const data2 = await response2.json();
+
+                // Display the input JSON
+                document.getElementById("inputJson").textContent = 
+                    "Test Case 1:\n" + JSON.stringify(data1, null, 2) + 
+                    "\n\nTest Case 2:\n" + JSON.stringify(data2, null, 2);
+                
+                // Process input data and simulate output
+                const output = processInputAndGetOutput(data1, data2);
+                document.getElementById("outputResult").textContent = output;
+
+            } catch (error) {
+                console.error("Error fetching input JSON files:", error);
+                document.getElementById("outputResult").textContent = "Error fetching input JSON files.";
+            }
+        }
+
+        // Dummy function to simulate processing input and generating output
+        function processInputAndGetOutput(data1, data2) {
+            // Here we should implement the actual logic of decoding and finding secrets
+            // For demonstration, let's assume the following output
+            const secret1 = 7; // Example output for Test Case 1
+            const secret2 = 15; // Example output for Test Case 2
+            
+            // Example wrong points for Test Case 2
+            const wrongPoints = [
+                { x: 4, y: 10 },
+                { x: 5, y: 20 }
+            ];
+
+            let outputHtml = `Secret for Test Case 1: ${secret1}\n`;
+            outputHtml += `Secret for Test Case 2: ${secret2}\n`;
+            if (wrongPoints.length > 0) {
+                outputHtml += `Wrong Points in Test Case 2:\n`;
+                wrongPoints.forEach(point => {
+                    outputHtml += `Point (x: ${point.x}, y: ${point.y})\n`;
+                });
+            } else {
+                outputHtml += `No wrong points in Test Case 2.\n`;
+            }
+
+            return outputHtml;
+        }
+
+        // Run the test cases
+        runTestCases();
+    </script>
+</body>
+</html>
